@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Reservation, AttendanceRecord } from '../types';
 import { TIME_SLOTS } from '../constants';
@@ -19,8 +18,10 @@ const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onLogout }) => 
         lunch: true, period8: false, dinner: true, study1: true, study2: true
     });
 
-    const fetchData = useCallback(async () => {
-        setIsLoading(true);
+    const fetchData = useCallback(async (isSilent: boolean = false) => {
+        if (!isSilent) {
+            setIsLoading(true);
+        }
         try {
             const { reservations, attendance } = await googleScriptService.getFullData();
             const today = new Date().toISOString().split('T')[0];
@@ -29,13 +30,24 @@ const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onLogout }) => 
             setAttendanceRecords(attendance);
         } catch (error) {
             console.error("Failed to fetch admin data", error);
+            if (!isSilent) {
+                alert('데이터를 불러오는 데 실패했습니다.');
+            }
         } finally {
-            setIsLoading(false);
+            if (!isSilent) {
+                setIsLoading(false);
+            }
         }
     }, []);
 
     useEffect(() => {
-        fetchData();
+        fetchData(false); // Initial load
+
+        const intervalId = setInterval(() => {
+            fetchData(true); // Silent polling every 30 seconds
+        }, 30000);
+
+        return () => clearInterval(intervalId);
     }, [fetchData]);
 
     const mileageData = useMemo(() => {

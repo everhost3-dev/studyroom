@@ -30,23 +30,34 @@ const BookingView: React.FC<BookingViewProps> = ({ setView, darkMode, setDarkMod
     const [cancelFormData, setCancelFormData] = useState({ studentId: '', name: '', reservationId: '' });
     const [showShareNotification, setShowShareNotification] = useState(false);
 
-    const loadTodayReservations = useCallback(async () => {
-        setIsLoadingReservations(true);
+    const loadTodayReservations = useCallback(async (isSilent: boolean = false) => {
+        if (!isSilent) {
+            setIsLoadingReservations(true);
+        }
         try {
             const today = new Date().toISOString().split('T')[0];
             const reservations = await googleScriptService.getTodayReservations(today);
             setTodayReservations(reservations);
         } catch (error) {
             console.error('Failed to load reservations', error);
-            // Display error to the user
-            alert(`예약 정보를 불러오는 데 실패했습니다: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            if (!isSilent) {
+                 alert(`예약 정보를 불러오는 데 실패했습니다: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            }
         } finally {
-            setIsLoadingReservations(false);
+             if (!isSilent) {
+                setIsLoadingReservations(false);
+            }
         }
     }, []);
 
     useEffect(() => {
-        loadTodayReservations();
+        loadTodayReservations(false); // Initial load
+
+        const intervalId = setInterval(() => {
+            loadTodayReservations(true); // Silent polling every 30 seconds
+        }, 30000);
+
+        return () => clearInterval(intervalId); // Cleanup on unmount
     }, [loadTodayReservations]);
 
     const handleShare = useCallback(() => {

@@ -1,9 +1,11 @@
-
 import { TimeSlot } from './types';
 
 export const ADMIN_PASSWORD = 'teacher2024';
 export const CHECKIN_PASSWORD = 'checkin123';
-export const GOOGLE_SCRIPT_URL = '여기에_1단계에서_복사한_새_URL을_붙여넣으세요';
+
+// 중요! 아래 'https://...' 부분을 1단계에서 배포하고 얻은 본인의 Google Script URL로 반드시 교체해주세요.
+// 이 주소가 틀리면 앱이 데이터를 불러오거나 저장할 수 없습니다.
+export const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyENLR08NFG0qT7LSPqJTrZWJnSe9o7nGYmEa9KqlwLzfcR9-K5NTQ3fbUIlkqF9EcLpg/exec'; // <-- 여기에 1단계에서 복사한 선생님의 URL을 붙여넣으세요!
 
 export const LOCATIONS = ['스터디룸', '영글터 집중학습실', '영글터 자율학습실', '채움터'];
 

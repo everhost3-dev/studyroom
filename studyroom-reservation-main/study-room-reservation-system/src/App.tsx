@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { View } from './types';
 import BookingView from './components/BookingView';

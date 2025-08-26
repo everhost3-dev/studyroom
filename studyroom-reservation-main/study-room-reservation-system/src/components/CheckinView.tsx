@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
 import { CheckInData } from '../types';
-import * as googleScriptService from '../services/googleScriptService';
-import { validateStudentId } from '../utils/helpers';
+import * as googleScriptService from '../../study-room-reservation-system/services/googleScriptService';
+import { validateStudentId } from '../../study-room-reservation-system/utils/helpers';
 import Spinner from './common/Spinner';
 
 interface CheckinViewProps {

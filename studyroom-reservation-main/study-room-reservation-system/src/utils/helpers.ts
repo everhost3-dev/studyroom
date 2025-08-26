@@ -1,5 +1,5 @@
 
-import { TIME_SLOT_LIMITS } from '../constants';
+import { TIME_SLOT_LIMITS } from '../../src/constants';
 
 export const getSeatCount = (location: string): number => {
     switch (location) {

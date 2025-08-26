@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Reservation, AttendanceRecord } from '../types';
 import { TIME_SLOTS } from '../constants';
-import * as googleScriptService from '../services/googleScriptService';
+import * as googleScriptService from '../../study-room-reservation-system/services/googleScriptService';
 import Spinner from './common/Spinner';
 
 interface AdminDashboardViewProps {

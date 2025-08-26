@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { View, FormData, Reservation, TeamMember } from '../types';
 import { LOCATIONS, TIME_SLOTS } from '../constants';
-import * as googleScriptService from '../services/googleScriptService';
-import { getSeatCount, isTimeSlotBookingAllowed, validateStudentId, getAvailableDates } from '../utils/helpers';
+import * as googleScriptService from '../../study-room-reservation-system/services/googleScriptService';
+import { getSeatCount, isTimeSlotBookingAllowed, validateStudentId, getAvailableDates } from '../../study-room-reservation-system/utils/helpers';
 import Header from './Header';
 import Spinner from './common/Spinner';
 import SeatButton from './common/SeatButton';
